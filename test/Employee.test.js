@@ -42,4 +42,14 @@ describe("Employee", () => {
             expect(obj).toEqual("dorrianweber@gmail.com");
         });
     });
+
+    describe("getRole", () => {
+        it("should return 'Employee'", () => {
+            // Act
+            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com").getName();
+
+            // Assert
+            expect(obj).toEqual("Employee");
+        });
+    });
 });
