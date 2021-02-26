@@ -1,6 +1,7 @@
+// Importing class
 const Employee = require("../lib/Employee");
 
-describe("Employee", () => {
+describe("Employee class", () => {
     describe("Initialization", () => {
         it("should create an Employee with name, id, & email", () => {
             // Act
@@ -13,43 +14,43 @@ describe("Employee", () => {
         });
     });
 
-    describe("getName", () => {
+    describe("getName method", () => {
         it("should return the employee's name", () => {
             // Act
-            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com").getName();
+            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com");
 
             // Assert
-            expect(obj).toEqual("Dorrian");
+            expect(obj.getName()).toEqual("Dorrian");
         });
     });
 
-    describe("getId", () => {
+    describe("getId method", () => {
         it("should return the employee's ID number", () => {
             // Act
-            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com").getName();
+            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com");
 
             // Assert
-            expect(obj).toEqual(12345);
+            expect(obj.getId()).toEqual(12345);
         });
     });
 
-    describe("getEmail", () => {
+    describe("getEmail method", () => {
         it("should return the employee's email address", () => {
             // Act
-            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com").getName();
+            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com");
 
             // Assert
-            expect(obj).toEqual("dorrianweber@gmail.com");
+            expect(obj.getEmail()).toEqual("dorrianweber@gmail.com");
         });
     });
 
-    describe("getRole", () => {
+    describe("getRole method", () => {
         it("should return 'Employee'", () => {
             // Act
-            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com").getName();
+            const obj = new Employee("Dorrian", 12345, "dorrianweber@gmail.com");
 
             // Assert
-            expect(obj).toEqual("Employee");
+            expect(obj.getRole()).toEqual("Employee");
         });
     });
 });
