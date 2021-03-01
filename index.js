@@ -36,8 +36,8 @@ inquirer
         );
     });
 
-    // Base HTML generation (just takes Manager info to start)
-    const generateHTML = ({mgrName, mgrID, mgrEmail, officeNumber}) =>
+// Base HTML generation (just takes Manager info to start)
+const generateHTML = ({mgrName, mgrID, mgrEmail, officeNumber}) =>
 
 `<!DOCTYPE html>
 <html lang="en">
@@ -46,16 +46,20 @@ inquirer
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Team Profile</title>
+        <!-- Link for Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     </head>
     <body>
         <div class="card">
-            <h4> ${mgrName} </h4>
-
-            <h5> Manager </h5>
-
-            <p> ID: ${mgrID} </p>
-            <p> Email: <a href="mailto:${mgrEmail}"> ${mgrEmail} </a> </p>
-            <p> Office number: ${officeNumber} </p>
+            <div class="card-body">
+                <h4 class="card-title"> ${mgrName} </h4>
+                <h5 class="card-subtitle mb-2 text-muted"> Manager </h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> ID: ${mgrID} </li>
+                    <li class="list-group-item"> Email: <a href="mailto:${mgrEmail}"> ${mgrEmail} </a> </li>
+                    <li class="list-group-item"> Office number: ${officeNumber} </li>
+                </ul>
+            </div>
         </div>
     </body>
 </html>`;
