@@ -36,52 +36,51 @@ inquirer
         );
     });
 
-    const generateHTML = ({x, y, z}) =>
-    `
-        <!DOCTYPE html>
-        <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Team Profile</title>
-            </head>
-            <body>
-                <div class="card">
-                    <h4> ${name} </h4>
-                    <br>
+    // Base HTML generation (just takes Manager info to start)
+    const generateHTML = ({mgrName, mgrID, mgrEmail, officeNumber}) =>
 
-                    <h5> ${role} </h5>
-                    <br>
+`<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Team Profile</title>
+    </head>
+    <body>
+        <div class="card">
+            <h4> ${mgrName} </h4>
 
-                    <p> ID: ${id} </p>
-                    <p> Email: <a href="mailto:${email}"> ${email} </a> </p>
-                    <p> Office number: ${officeNumber} </p>
-                </div>
+            <h5> Manager </h5>
 
-                <div class="card">
-                    <h4> ${name} </h4>
-                    <br>
+            <p> ID: ${mgrID} </p>
+            <p> Email: <a href="mailto:${mgrEmail}"> ${mgrEmail} </a> </p>
+            <p> Office number: ${officeNumber} </p>
+        </div>
+    </body>
+</html>`;
 
-                    <h5> ${role} </h5>
-                    <br>
+// HTML GENERATION FOR ENGINEER & INTERN
+    // <div class="card">
+    //     <h4> ${name} </h4>
+    //     <br>
 
-                    <p> ID: ${id} </p>
-                    <p> Email: <a href="mailto:${email}"> ${email} </a> </p>
-                    <p> Github: <a href="https://github.com/${github}" target="_blank"> ${github} </a> </p>
-                </div>
+    //     <h5> ${role} </h5>
+    //     <br>
 
-                <div class="card">
-                    <h4> ${name} </h4>
-                    <br>
+    //     <p> ID: ${id} </p>
+    //     <p> Email: <a href="mailto:${email}"> ${email} </a> </p>
+    //     <p> Github: <a href="https://github.com/${github}" target="_blank"> ${github} </a> </p>
+    // </div>
 
-                    <h5> ${role} </h5>
-                    <br>
+    // <div class="card">
+    //     <h4> ${name} </h4>
+    //     <br>
 
-                    <p> ID: ${id} </p>
-                    <p> Email: <a href="mailto:${email}"> ${email} </a> </p>
-                    <p> School: ${school} </p>
-                </div>
-            </body>
-        </html>
-    `;
+    //     <h5> ${role} </h5>
+    //     <br>
+
+    //     <p> ID: ${id} </p>
+    //     <p> Email: <a href="mailto:${email}"> ${email} </a> </p>
+    //     <p> School: ${school} </p>
+    // </div>
