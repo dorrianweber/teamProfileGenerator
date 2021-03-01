@@ -1,90 +1,99 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+const util = require('util');
 
-inquirer
-    .prompt([
+const generateHTMLFile = require('./src/generateHTML');
+
+let employeeList = [];
+
+const promptUser = () => {
+    return inquirer.prompt([
         {
             type: "input",
-            name: "mgrName",
-            message: "What is the name of your team manager?"
+            name: "name",
+            message: "What is the employee's name?"
         },
 
         {
             type: "number",
-            name: "mgrID",
+            name: "id",
             message: "Their employee ID number?"
         },
 
         {
             type: "input",
-            name: "mgrEmail",
+            name: "email",
             message: "How about their email address?"
         },
 
         {
-            type: "number",
-            name: "officeNumber",
-            message: "And finally, their office number?"
+            type: "list",
+            name: "role",
+            message: "Lastly, what is their role?",
+            choices: ["Manager", "Engineer", "Intern"]
         },
+
+        {
+            when: input => {
+                return input.role == "Manager"
+            },
+            type: "input",
+            name: "officeNumber",
+            message: "What is their office number?",
+        },
+
+        {
+            when: input => {
+                return input.role == "Engineer"
+            },
+            type: "input",
+            name: "github",
+            message: "What is the engineer's github username?",
+        },
+
+        {
+            when: input => {
+                return input.role == "Intern"
+            },
+            type: "input",
+            name: "school",
+            message: "What is the intern's school?",
+        },
+
+        {
+            type: "list",
+            name: "continue",
+            message: "Would you like to add another employee?",
+            choices: ["Yes", "No"]
+        }
     ])
+
     .then((answers) => {
-        const htmlPage = generateHTML(answers);
-        console.log(htmlPage);
+        if (answers.continue === "Yes"){
+            employeeList += answers;
 
-        fs.writeFile("index.html", htmlPage, (err) =>
-            err ? console.err(err) : console.log("Success!")
-        );
+            console.log(employeeList);
+
+            promptUser();
+        }
+
+        else {
+            return;
+        };
     });
+};
 
-// Base HTML generation (just takes Manager info to start)
-const generateHTML = ({mgrName, mgrID, mgrEmail, officeNumber}) =>
+const writeHTML = util.promisify(fs.writeFile);
 
-`<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Team Profile</title>
-        <!-- Link for Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    </head>
-    <body>
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title"> ${mgrName} </h4>
-                <h5 class="card-subtitle mb-2 text-muted"> Manager </h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"> ID: ${mgrID} </li>
-                    <li class="list-group-item"> Email: <a href="mailto:${mgrEmail}"> ${mgrEmail} </a> </li>
-                    <li class="list-group-item"> Office number: ${officeNumber} </li>
-                </ul>
-            </div>
-        </div>
-    </body>
-</html>`;
+const init = () => {
+    promptUser()
+        .then((answers) =>{
+            const htmlPage = generateHTML(answers);
 
-// HTML GENERATION FOR ENGINEER & INTERN
-    // <div class="card">
-    //     <h4> ${name} </h4>
-    //     <br>
+            writeHTML(`${__dirname}/dist/index.html`, htmlPage)
+        })
+        .then(() => console.log("Wrote file successfully."))
+        .catch((err) => console.error(err));
+}
 
-    //     <h5> ${role} </h5>
-    //     <br>
-
-    //     <p> ID: ${id} </p>
-    //     <p> Email: <a href="mailto:${email}"> ${email} </a> </p>
-    //     <p> Github: <a href="https://github.com/${github}" target="_blank"> ${github} </a> </p>
-    // </div>
-
-    // <div class="card">
-    //     <h4> ${name} </h4>
-    //     <br>
-
-    //     <h5> ${role} </h5>
-    //     <br>
-
-    //     <p> ID: ${id} </p>
-    //     <p> Email: <a href="mailto:${email}"> ${email} </a> </p>
-    //     <p> School: ${school} </p>
-    // </div>
+init();
