@@ -1,9 +1,14 @@
 // Importing everything needed
 const fs = require('fs');
 const inquirer = require('inquirer');
-const util = require('util');
+
 const generateHTML = require('./src/generateHTML');
 const employeeHTML = require('./src/employeeHTML');
+
+const Employee = require('./lib/Employee');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 // Array to hold employees user generates
 let employeeList = [];
