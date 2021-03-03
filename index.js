@@ -7,7 +7,7 @@ const generateHTMLFile = require('./src/generateHTML');
 let employeeList = [];
 
 const promptUser = () => {
-    return inquirer.prompt([
+    inquirer.prompt([
         {
             type: "input",
             name: "name",
@@ -69,16 +69,15 @@ const promptUser = () => {
     ])
 
     .then((answers) => {
+        employeeList.push(answers);
+        console.log(employeeList);
+
         if (answers.continue === "Yes"){
-            employeeList += answers;
-
-            console.log(employeeList);
-
             promptUser();
         }
 
         else {
-            return;
+            return employeeList;
         };
     });
 };
@@ -87,13 +86,13 @@ const writeHTML = util.promisify(fs.writeFile);
 
 const init = () => {
     promptUser()
-        .then((answers) =>{
-            const htmlPage = generateHTML(answers);
+        // .then((answers) =>{
+        //     const htmlPage = generateHTML(answers);
 
-            writeHTML(`${__dirname}/dist/index.html`, htmlPage)
-        })
-        .then(() => console.log("Wrote file successfully."))
-        .catch((err) => console.error(err));
+        //     writeHTML(`${__dirname}/dist/index.html`, htmlPage)
+        // })
+        // .then(() => console.log("Wrote file successfully."))
+        // .catch((err) => console.error(err));
 }
 
 init();
