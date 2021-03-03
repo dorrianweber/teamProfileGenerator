@@ -1,8 +1,8 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 const util = require('util');
-
-const generateHTMLFile = require('./src/generateHTML');
+const generateHTML = require('./src/generateHTML');
+const employeeHTML = require('./src/employeeHTML');
 
 let employeeList = [];
 
@@ -77,22 +77,26 @@ const promptUser = () => {
         }
 
         else {
-            return employeeList;
+            employeeList;
+
+            let employeeCards = "";
+
+            for (var i = 0; i < employeeList.length; i++) {
+                const employeeInfo = employeeHTML(employeeList[i]);
+                
+                employeeCards += employeeInfo;
+            };
+
+            // Dummy callback
+            fs.writeFile(`${__dirname}/dist/index.html`, generateHTML(employeeCards), (err) => {
+                if (err) {
+                    throw err;
+                }
+            });
         };
-    });
+    })
+
+    .catch((err) => console.error(err));
 };
 
-const writeHTML = util.promisify(fs.writeFile);
-
-const init = () => {
-    promptUser()
-        // .then((answers) =>{
-        //     const htmlPage = generateHTML(answers);
-
-        //     writeHTML(`${__dirname}/dist/index.html`, htmlPage)
-        // })
-        // .then(() => console.log("Wrote file successfully."))
-        // .catch((err) => console.error(err));
-}
-
-init();
+promptUser();

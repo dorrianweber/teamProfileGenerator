@@ -43,4 +43,6 @@ const HTMLtemplate = (employee) => {
             </div>
         </div>`
     }
-}
+};
+
+module.exports = HTMLtemplate;
