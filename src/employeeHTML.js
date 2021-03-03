@@ -1,4 +1,6 @@
+// Function that creates chunks of HTML particular to employee role
 const HTMLtemplate = (employee) => {
+    // For Managers...
     if (employee.role === "Manager") {
         return `
         <div class="card">
@@ -14,6 +16,7 @@ const HTMLtemplate = (employee) => {
         </div>`
     }
 
+    // Engineers...
     else if (employee.role === "Engineer") {
         return `
         <div class="card">
@@ -29,6 +32,7 @@ const HTMLtemplate = (employee) => {
         </div>`
     }
 
+    // And interns...
     else if (employee.role === "Intern") {
         return `
         <div class="card">
@@ -45,4 +49,5 @@ const HTMLtemplate = (employee) => {
     }
 };
 
+// Exporting HTMLtemplate() function
 module.exports = HTMLtemplate;

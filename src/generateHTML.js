@@ -1,3 +1,4 @@
+// Function that generates HTML page for roster of employees
 const generateHTML = (employeeData) => {
 
 return `<!DOCTYPE html>
@@ -15,4 +16,5 @@ return `<!DOCTYPE html>
     </body>
 </html>`};
 
+// Exporting genereateHTML() function
 module.exports = generateHTML;

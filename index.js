@@ -1,11 +1,14 @@
+// Importing everything needed
 const fs = require('fs');
 const inquirer = require('inquirer');
 const util = require('util');
 const generateHTML = require('./src/generateHTML');
 const employeeHTML = require('./src/employeeHTML');
 
+// Array to hold employees user generates
 let employeeList = [];
 
+// Function that prompts user to enter employee info
 const promptUser = () => {
     inquirer.prompt([
         {
@@ -69,25 +72,32 @@ const promptUser = () => {
     ])
 
     .then((answers) => {
+        // Adds employee to array
         employeeList.push(answers);
+
+        // Logs this employee in the console
         console.log(employeeList);
 
+        // If user needs to enter more employees...
         if (answers.continue === "Yes"){
+            // Runs prompting function again
             promptUser();
         }
 
+        // If not...
         else {
-            employeeList;
-
+            // Blank string to hold generated HTML
             let employeeCards = "";
 
+            // For loop that runs functions for HTML generation for each employee in the roster
             for (var i = 0; i < employeeList.length; i++) {
                 const employeeInfo = employeeHTML(employeeList[i]);
                 
+                // Adds current employee's HTML to the employeeCards string
                 employeeCards += employeeInfo;
             };
 
-            // Dummy callback
+            // Wrting the HTML file (dummy callback to avoid errors)
             fs.writeFile(`${__dirname}/dist/index.html`, generateHTML(employeeCards), (err) => {
                 if (err) {
                     throw err;
@@ -96,7 +106,9 @@ const promptUser = () => {
         };
     })
 
+    // Catching errors...
     .catch((err) => console.error(err));
 };
 
+// Prompting function is triggered upon running the application
 promptUser();
