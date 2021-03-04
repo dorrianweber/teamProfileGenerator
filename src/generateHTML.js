@@ -10,8 +10,14 @@ return `<!DOCTYPE html>
         <title>Team Profile</title>
         <!-- Link for Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <!-- Link for CSS file -->
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <header class="pageHeader">
+            <h1>My Team</h1>
+        </header>
+        
         ${employeeData}
     </body>
 </html>`};
